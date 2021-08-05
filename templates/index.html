@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID Tracker</title>
+</head>
+<body>
+    <form method="post" action="/">
+        <div> 
+            <label for="start">Start date:</label> 
+        </div>
+        <input type="date" id="start" name="date-start"
+            value="2021-07-01"
+            min="2018-01-01" max="2021-12-31">
+
+        <div> 
+            <label for="start">End date:</label> 
+        </div>
+        <input type="date" id="end" name="date-end"
+        value="2021-07-31"
+        min="2018-01-01" max="2021-12-31">
+        <div>
+            <input type="submit" value="Отправить" name="submitBtn">
+        </div>
+    </form>   
+</body>
+</html>
