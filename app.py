@@ -25,19 +25,20 @@ def create_table():
     conn.commit()
     cursor.close()
     conn.close()
-    print ("table created")
 
 def insert_to_db():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
-    date = datetime.date(2021, 8, 13)
-    # ARG, CHN, ESP, DEU, GBR, ISR, ITA, JPN, RUS, USA
+    cursor.execute("SELECT MAX(id), MAX(date_value) FROM tracker")
+    rows = cursor.fetchall()
+    last_id_date = rows[0]
+    date = last_id_date[1] + datetime.timedelta(days=1)
     url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{}/{}".format(date, datetime.date.today())
     Uresponse = requests.get(url)
     Jresponse = Uresponse.text
     data = json.loads(Jresponse)
     countries = ['ARG', 'CHN', 'ESP', 'GBR', 'DEU', 'ISR', 'ITA', 'JPN', 'RUS', 'USA']
-    tableid = 2222
+    tableid = last_id_date[0]
     while date < datetime.date.today():
         for id, i in enumerate(countries):
             if i in data["data"][date.strftime("%Y-%m-%d")]:
@@ -56,32 +57,15 @@ def insert_to_db():
             conn.commit()
             print ("inserted {} {} {}".format(tableid, date, i))
         date = date + datetime.timedelta(days=1)
+    cursor.fetchall()
     cursor.close()
     conn.close()
-    return 'insertion completed'
 
 @app.route("/", methods=['GET', 'POST'])
 
 def index():
     create_table()
     insert_to_db()
-    # if request.method == 'POST':
-    #     pass
-    #     # conn = mysql.connect()
-    #     # cursor = conn.cursor() 
-    #     # cursor.execute("USE marushov-mysqldb CREATE TABLE tracker(date_value DATE, country_code VARCHAR(255), confirmed INT, deaths INT, stringency_actual INT, stringency INT)")
-    #     start_date = request.form.get('start_date')
-    #     country_code = request.form.get('country_code')
-    #     url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/actions/{}/{}".format(country_code, start_date)
-    #     Uresponse = requests.get(url)
-    #     try:
-    #         Uresponse = requests.get(url)
-    #     except requests.ConnectionError:
-    #         return "Connection Error"  
-    #     Jresponse = Uresponse.text
-    #     data = json.loads(Jresponse)
-    #     return data # "confirmed {}".format(data["stringencyData"]["confirmed"])
-    # else:
     return render_template('index.html')
 
 @app.route("/data", methods=['GET','POST'])
@@ -90,16 +74,16 @@ def data():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor() 
     start_date = request.form.get('start_date')
-    # try:
-    #     start_date > datetime.date.today()
-    # except:
-    #     return "Wrong date error" 
+    f=1
+    startdate = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
+    if startdate >= datetime.date.today():
+        f=0
     sql = "SELECT date_value, country_code, confirmed, deaths, stringency_actual, stringency FROM tracker WHERE date_value = %s ORDER BY deaths"
     cursor.execute(sql, (start_date,))
     data = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render_template('data.html', data=data)
+    return render_template('data.html', data=data, f=f)
 
 if __name__ == '__main__':
     app.run(debug=True)
