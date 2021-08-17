@@ -1,4 +1,10 @@
+__pycache__
+.terraform
+venv
+.terraform.lock.hcl
 main.tf
+out.plan
 outputs.tf
-variables.tf
 README.md
+terraform.tfstate
+variables.tf
