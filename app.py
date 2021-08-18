@@ -4,12 +4,14 @@ import requests
 import simplejson 
 import json
 import datetime
+import os
+from kubernetes import client, config
 
 app = Flask(__name__)
 
 config = {
-    'user': '***REMOVED***',
-    'password': '***REMOVED***',
+    'user': os.getenv("username"),
+    'password': os.getenv("password"),
     'database': 'marushov-mysqldb',
     'host': '***REMOVED***',
     'port': 3306,

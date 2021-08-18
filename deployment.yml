@@ -1,0 +1,33 @@
+  apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: covidtracker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: covidtracker
+  template:
+    metadata:
+      labels:
+        app: covidtracker
+    spec:
+      containers:
+      - name: covidtracker
+        envFrom:
+        - secretRef:
+            name: dbsecret
+        image: $(Build.Repository.Name):$(Build.BuildId)
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dbsecret
+type: kubernetes.io/basic-auth
+data:
+  username: ***REMOVED***
+  password: ***REMOVED***
