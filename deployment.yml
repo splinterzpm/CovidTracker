@@ -16,9 +16,12 @@ spec:
     spec:
       containers:
       - name: covidtracker
-        envFrom:
-        - secretRef:
-            name: dbsecret
+        env:
+        - name: mysqlpassword
+          valueFrom:
+            secretKeyRef:
+              name: dbsecret
+              key: db_password
         image: $(Build.Repository.Name):$(Build.BuildId)
         ports:
         - containerPort: 80

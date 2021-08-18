@@ -5,13 +5,12 @@ import simplejson
 import json
 import datetime
 import os
-from kubernetes import client, config
 
 app = Flask(__name__)
 
 config = {
-    'user': os.getenv("username"),
-    'password': os.getenv("password"),
+    'user': '***REMOVED***',
+    'password': os.getenv("db_password"),
     'database': 'marushov-mysqldb',
     'host': '***REMOVED***',
     'port': 3306,
