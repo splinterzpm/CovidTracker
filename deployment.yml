@@ -24,10 +24,10 @@ spec:
               key: db_password
         image: marushovacr.azurecr.io/splinterzpm/covidtracker:4
         imagePullPolicy: Always
-        imagePullSecrets:
-        - name: regcred
         ports:
         - containerPort: 80
+        imagePullSecrets:
+        - name: regcred
 ---
 apiVersion: v1
 kind: Secret
