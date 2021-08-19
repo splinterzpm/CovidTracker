@@ -22,7 +22,8 @@ spec:
             secretKeyRef:
               name: dbsecret
               key: db_password
-        image: $(Build.Repository.Name):$(Build.BuildId)
+        image: marushovacr.azurecr.io/splinterzpm/covidtracker:4
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
