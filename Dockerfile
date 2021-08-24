@@ -1,14 +1,16 @@
 FROM ubuntu:16.04
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+    apt-get -y install python3 python3-dev python3-pip
+
+RUN pip install --upgrade pip
 
 COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . /app
 
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
