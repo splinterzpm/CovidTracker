@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, jsonify, render_template, request
 import mysql.connector
 import requests
