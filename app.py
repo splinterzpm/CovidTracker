@@ -18,7 +18,8 @@ config = {
     'host': '***REMOVED***',
     'port': 3306,
     'ssl_ca': 'BaltimoreCyberTrustRoot.crt.pem',
-    'ssl_verify_cert': 'true'
+    'ssl_verify_cert': true,
+
 }
 
 def create_table():
