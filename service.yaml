@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-service
+  namespace: covidtracker
+  labels:
+    app: covidtracker
+spec:
+  type: LoadBalancer
+  selector:
+    app: covidtracker
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 5000
