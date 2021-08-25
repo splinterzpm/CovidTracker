@@ -12,15 +12,14 @@ app = Flask(__name__)
 logging.basicConfig(filename='covidtracker.log', level=logging.DEBUG)
 
 config = {
-    'user': os.getenv("db_root_username"),
-    'password': os.getenv("db_root_password"),
+    'user': '***REMOVED***',
+    'password': '***REMOVED***',
     'database': 'marushov-mysqldb',
     'host': '***REMOVED***',
     'port': 3306,
     'ssl_ca': 'BaltimoreCyberTrustRoot.crt.pem',
     'ssl_verify_cert': 'true'
 }
-
 
 def create_table():
     conn = mysql.connector.connect(**config)
