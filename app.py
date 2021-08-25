@@ -5,12 +5,15 @@ import simplejson
 import json
 import datetime
 import os
+import logging
 
 app = Flask(__name__)
 
+logging.basicConfig(filename='covidtracker.log', level=logging.DEBUG)
+
 config = {
-    'user': '***REMOVED***',
-    'password': os.getenv("db_password"),
+    'user': os.getenv("username"),
+    'password': os.getenv("password"),
     'database': 'marushov-mysqldb',
     'host': '***REMOVED***',
     'port': 3306,
