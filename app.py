@@ -12,8 +12,8 @@ app = Flask(__name__)
 logging.basicConfig(filename='covidtracker.log', level=logging.DEBUG)
 
 config = {
-    'user': '***REMOVED***',
-    'password': '***REMOVED***',
+    'user': os.getenv("db_root_username"),
+    'password': os.getenv("db_root_password"),
     'database': 'marushov-mysqldb',
     'host': '***REMOVED***',
     'port': 3306,
