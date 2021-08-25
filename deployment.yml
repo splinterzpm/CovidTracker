@@ -25,7 +25,7 @@ spec:
         envFrom:
         - secretRef:
             name: dbsecret
-        image: marushovacr.azurecr.io/splinterzpm/covidtracker:18
+        image: marushovacr.azurecr.io/splinterzpm/covidtracker:28
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -37,7 +37,6 @@ kind: Secret
 metadata:
   name: dbsecret
   namespace: covidtracker
-type: kubernetes.io/basic-auth
 data:
-  username: ***REMOVED***
-  password: ***REMOVED***
+  db_root_username: ***REMOVED***
+  db_root_password: ***REMOVED***
