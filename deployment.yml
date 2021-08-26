@@ -25,7 +25,7 @@ spec:
         envFrom:
         - secretRef:
             name: dbsecret
-        image: marushovacr.azurecr.io/splinterzpm/covidtracker:28
+        image: marushovacr.azurecr.io/covidtracker-prod:28
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
