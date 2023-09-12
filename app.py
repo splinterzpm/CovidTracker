@@ -33,7 +33,8 @@ def insert_to_db():
     cursor.execute("SELECT MAX(id), MAX(date_value) FROM tracker")
     rows = cursor.fetchall()
     last_id_date = rows[0]
-    date = last_id_date[1] + datetime.timedelta(days=1)
+    if last_id_date[1] is NULL: date = "2020-01-22" 
+    else: date = last_id_date[1] + datetime.timedelta(days=1)
     url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{}/{}".format(date, datetime.date.today())
     Uresponse = requests.get(url)
     Jresponse = Uresponse.text
