@@ -35,12 +35,13 @@ def insert_to_db():
     last_id_date = rows[0]
     if last_id_date[1] is None: date = datetime.date(2020, 1, 22)
     else: date = last_id_date[1] + datetime.timedelta(days=1)
+    if last_id_date[0] is None: tableid = int(-1)
+    else: tableid = last_id_date[0]
     url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{}/{}".format(date, datetime.date.today())
     Uresponse = requests.get(url)
     Jresponse = Uresponse.text
     data = json.loads(Jresponse)
     countries = ['ARG', 'CHN', 'ESP', 'GBR', 'DEU', 'ISR', 'ITA', 'JPN', 'RUS', 'USA']
-    tableid = last_id_date[0]
     while date < datetime.date.today():
         for id, i in enumerate(countries):
             if i in data["data"][date.strftime("%Y-%m-%d")]:
