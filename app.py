@@ -33,16 +33,17 @@ def insert_to_db():
     cursor.execute("SELECT MAX(id), MAX(date_value) FROM tracker")
     rows = cursor.fetchall()
     last_id_date = rows[0]
+    end_date = datetime.date(2022, 12, 31)
     if last_id_date[1] is None: date = datetime.date(2020, 1, 22)
     else: date = last_id_date[1] + datetime.timedelta(days=1)
     if last_id_date[0] is None: tableid = int(-1)
     else: tableid = last_id_date[0]
-    url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{}/{}".format(date, datetime.date.today())
+    url = "https://covidtrackerapi.bsg.ox.ac.uk/api/v2/stringency/date-range/{}/{}".format(date, end_date)
     Uresponse = requests.get(url)
     Jresponse = Uresponse.text
     data = json.loads(Jresponse)
     countries = ['ARG', 'CHN', 'ESP', 'GBR', 'DEU', 'ISR', 'ITA', 'JPN', 'RUS', 'USA']
-    while date < datetime.date.today():
+    while date < end_date:
         for id, i in enumerate(countries):
             if i in data["data"][date.strftime("%Y-%m-%d")]:
                 tableid +=1
