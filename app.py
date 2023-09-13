@@ -75,12 +75,13 @@ def index():
 @app.route("/data", methods=['GET','POST'])
 
 def data():
+    end_date = datetime.date(2022, 12, 31)
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor() 
     start_date = request.form.get('start_date')
     f=1
     startdate = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
-    if startdate >= datetime.date.today():
+    if startdate >= end_date:
         f=0
     sql = "SELECT date_value, country_code, confirmed, deaths, stringency_actual, stringency FROM tracker WHERE date_value = %s ORDER BY deaths"
     cursor.execute(sql, (start_date,))
