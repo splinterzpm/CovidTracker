@@ -23,5 +23,7 @@ spec:
   - http:
       paths:
       - backend:
-          serviceName: ingress
-          servicePort: 443
+          service: 
+            name: ingress
+            port:
+              number: 443
