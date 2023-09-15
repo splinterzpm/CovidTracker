@@ -20,9 +20,10 @@ metadata:
 spec:
   ingressClassName: azure-application-gateway
   rules:
-  - http:
+  - https:
       paths:
-      - backend:
+      - path: /
+        backend:
           service: 
             name: ingress
             port:
