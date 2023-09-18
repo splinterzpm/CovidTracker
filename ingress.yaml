@@ -10,6 +10,7 @@ spec:
     app: covidtracker
   ports:
     - protocol: TCP
+      name: tcp-80
       port: 80
       targetPort: 5000
 ---
@@ -24,6 +25,7 @@ spec:
       secretName: aks-ingress-tls
   ingressClassName: azure-application-gateway
   rules:
+  - host: mgcovtracker.com
   - http:
       paths:
       - path: /
