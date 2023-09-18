@@ -18,6 +18,10 @@ kind: Ingress
 metadata:
   name: covidtracker
 spec:
+  tls: 
+    - hosts:
+      - mgcovtracker.com
+      secretName: aks-ingress-tls
   ingressClassName: azure-application-gateway
   rules:
   - http:
