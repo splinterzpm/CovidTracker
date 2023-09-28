@@ -25,7 +25,7 @@ spec:
         envFrom:
         - secretRef:
             name: dbsecret
-        image: marushovacr.azurecr.io/covidtracker-prod:latest
+        image: __imagename__:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -38,5 +38,5 @@ metadata:
   name: dbsecret
   namespace: covidtracker
 data:
-  db_root_username: ***REMOVED***
-  db_root_password: ***REMOVED***
+  db_root_username: __db_root_username__
+  db_root_password: __db_root_password__

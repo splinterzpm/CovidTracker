@@ -15,7 +15,7 @@ config = {
     'user': os.getenv("db_root_username"),
     'password': os.getenv("db_root_password"),
     'database': 'marushov-mysqldb',
-    'host': '***REMOVED***',
+    'host': '#{servername}#',
     'port': 3306,
 }
 
